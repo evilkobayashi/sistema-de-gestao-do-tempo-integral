@@ -1,0 +1,8 @@
+node_modules
+.next
+.git
+.vercel
+gestao.db
+gestao.db-shm
+gestao.db-wal
+coverage

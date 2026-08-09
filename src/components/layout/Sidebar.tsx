@@ -15,7 +15,8 @@ import {
   LogOut,
   Upload,
   Sparkles,
-  BarChart3
+  BarChart3,
+  UserCheck
 } from 'lucide-react'
 
 
@@ -25,6 +26,7 @@ const links = [
   { href: '/', label: 'Início (Home)', icon: Home },
   { href: '/dashboard-executivo', label: 'Dashboard BI Executivo', icon: BarChart3 },
   { href: '/dashboard', label: 'Dashboard Operacional', icon: LayoutDashboard },
+  { href: '/frequencia', label: 'Frequência & Evasão', icon: UserCheck },
   { href: '/lotacoes', label: 'Lotações & Trava 40h', icon: ClipboardPlus },
   { href: '/importar', label: 'Importar Excel', icon: Upload },
   { href: '/oficineiros', label: 'Oficineiros', icon: Users },
