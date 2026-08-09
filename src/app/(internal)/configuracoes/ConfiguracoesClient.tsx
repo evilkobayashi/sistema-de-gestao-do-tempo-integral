@@ -17,8 +17,8 @@ function LookupSection({
 }: {
   title: string
   items: Item[]
-  onCreate: (fd: FormData) => Promise<void>
-  onDelete: (id: number) => Promise<{ error?: string } | undefined | void>
+  onCreate: (fd: FormData) => Promise<any>
+  onDelete: (id: number) => Promise<any>
 }) {
   const [error, setError] = useState<string | null>(null)
 
@@ -33,7 +33,10 @@ function LookupSection({
 
   async function handleCreate(fd: FormData) {
     setError(null)
-    await onCreate(fd)
+    const result = await onCreate(fd)
+    if (result && result.error) {
+      setError(result.error)
+    }
   }
 
   return (
