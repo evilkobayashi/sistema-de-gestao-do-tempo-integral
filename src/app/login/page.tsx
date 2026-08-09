@@ -1,7 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { loginAction } from '@/app/actions/auth'
+
 import { Lock, Mail, Sparkles, ShieldCheck, ArrowRight, Eye, EyeOff } from 'lucide-react'
 
 export default function LoginPage() {
@@ -128,9 +130,16 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Quick Demo Credentials */}
-          <div className="pt-4 border-t border-slate-800 space-y-2">
-            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block text-center">
+          {/* Quick Demo Credentials & Signup Link */}
+          <div className="pt-4 border-t border-slate-800 space-y-3">
+            <div className="text-center text-xs text-slate-400">
+              Não tem uma conta corporativa?{' '}
+              <Link href="/cadastro" className="font-bold text-emerald-400 hover:text-emerald-300 transition-colors">
+                Cadastre-se aqui
+              </Link>
+            </div>
+
+            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block text-center pt-2 border-t border-slate-800/60">
               Acesso Rápido (Demonstração)
             </span>
             <div className="grid grid-cols-2 gap-2">
@@ -154,6 +163,7 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
+
 
         <p className="text-[11px] text-slate-500 text-center mt-6 font-medium">
           GTI Educação © 2026 • Programa de Educação de Tempo Integral
