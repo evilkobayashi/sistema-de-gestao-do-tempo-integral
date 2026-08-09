@@ -10,6 +10,7 @@
     "seed": "npx tsx src/lib/seed.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.2",
     "better-sqlite3": "^12.10.0",
     "drizzle-orm": "^0.45.2",
     "html2canvas": "^1.4.1",
