@@ -2,12 +2,39 @@ import { db } from './db'
 import { lotacoes, escolas, oficinas, oficineiros, turnos } from './schema'
 import { eq, sql } from 'drizzle-orm'
 
-// ponytail: fallbacks resilientes para Vercel Serverless (evita crash do Server Component em produção)
+// ponytail: fallbacks resilientes para Vercel Serverless com a rede completa de Queimados RJ
 const MOCK_ESCOLAS = [
-  { id: 1, nome: 'E.M. Aníbal Viriato de Castro' },
-  { id: 2, nome: 'E.M. Queimados' },
-  { id: 3, nome: 'E.M. Leopoldo Machado' },
-  { id: 4, nome: 'E.M. Scintilla Exel' },
+  // Creches Municipais
+  { id: 1, nome: 'Creche M. Clotildes Martins Lemos' },
+  { id: 2, nome: 'Creche M. Iracema Garcia' },
+  { id: 3, nome: 'Creche M. Prof.ª Vanda Gonçalves Faria Ferreira' },
+  { id: 4, nome: 'Creche M. Ver. Gilberto Peres de Oliveira' },
+  { id: 5, nome: 'Creche M. Prof.ª Ana Claudia do Carmo' },
+
+  // Escolas Municipais
+  { id: 6, nome: 'E. M. Allan Kardec' },
+  { id: 7, nome: 'E. M. Aníbal Viriato de Castro' },
+  { id: 8, nome: 'E. M. Castelo Branco' },
+  { id: 9, nome: 'E. M. Dr. Cledon Cavalcante' },
+  { id: 10, nome: 'E. M. Dr. Francisco Manoel Brandão' },
+  { id: 11, nome: 'E. M. Eloi Dias Teixeira' },
+  { id: 12, nome: 'E. M. José Anastácio Rodrigues' },
+  { id: 13, nome: 'E. M. José Bittencourt de Oliveira' },
+  { id: 14, nome: 'E. M. Luiz de Camões' },
+  { id: 15, nome: 'E. M. Metodista de Queimados' },
+  { id: 16, nome: 'E. M. Monteiro Lobato' },
+  { id: 17, nome: 'E. M. Oscar Weinschenck' },
+  { id: 18, nome: 'E. M. Pastor Arsênio Gonçalves' },
+  { id: 19, nome: 'E. M. Paulo Freire' },
+  { id: 20, nome: 'E. M. Prof.ª Diva Teixeira Martins' },
+  { id: 21, nome: 'E. M. Prof. Joaquim de Freitas' },
+  { id: 22, nome: 'E. M. Prof. Leopoldo Machado' },
+  { id: 23, nome: 'E. M. Prof.ª Scintilla Exel' },
+  { id: 24, nome: 'E. M. Prof. Ubirajara Ferreira' },
+  { id: 25, nome: 'E. M. Santo Antônio' },
+  { id: 26, nome: 'E. M. São José' },
+  { id: 27, nome: 'E. M. Senador Nelson Carneiro' },
+  { id: 28, nome: 'E. M. Waldick Cunegundes Pereira' },
 ]
 
 const MOCK_OFICINAS = [
