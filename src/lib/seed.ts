@@ -3,42 +3,43 @@ import { turnos, escolas, oficinas, oficineiros, lotacoes } from './schema'
 
 const ESCOLAS_QUEIMADOS = [
   // Creches Municipais
-  { nome: 'Creche M. Clotildes Martins Lemos' },
-  { nome: 'Creche M. Iracema Garcia' },
-  { nome: 'Creche M. Prof.ª Vanda Gonçalves Faria Ferreira' },
-  { nome: 'Creche M. Ver. Gilberto Peres de Oliveira' },
-  { nome: 'Creche M. Prof.ª Ana Claudia do Carmo' },
+  { nome: 'Creche Municipal Clotildes Martins Lemos' },
+  { nome: 'Creche Municipal Iracema Garcia' },
+  { nome: 'Creche Municipal Professora Vanda Gonçalves Faria Ferreira' },
+  { nome: 'Creche Municipal Vereador Gilberto Peres de Oliveira' },
+  { nome: 'Creche Municipal Professora Ana Claudia do Carmo' },
 
   // Escolas Municipais
-  { nome: 'E. M. Allan Kardec' },
-  { nome: 'E. M. Aníbal Viriato de Castro' },
-  { nome: 'E. M. Castelo Branco' },
-  { nome: 'E. M. Dr. Cledon Cavalcante' },
-  { nome: 'E. M. Dr. Francisco Manoel Brandão' },
-  { nome: 'E. M. Eloi Dias Teixeira' },
-  { nome: 'E. M. José Anastácio Rodrigues' },
-  { nome: 'E. M. José Bittencourt de Oliveira' },
-  { nome: 'E. M. Luiz de Camões' },
-  { nome: 'E. M. Metodista de Queimados' },
-  { nome: 'E. M. Monteiro Lobato' },
-  { nome: 'E. M. Oscar Weinschenck' },
-  { nome: 'E. M. Pastor Arsênio Gonçalves' },
-  { nome: 'E. M. Paulo Freire' },
-  { nome: 'E. M. Prof.ª Diva Teixeira Martins' },
-  { nome: 'E. M. Prof. Joaquim de Freitas' },
-  { nome: 'E. M. Prof. Leopoldo Machado' },
-  { nome: 'E. M. Prof.ª Scintilla Exel' },
-  { nome: 'E. M. Prof. Ubirajara Ferreira' },
-  { nome: 'E. M. Santo Antônio' },
-  { nome: 'E. M. São José' },
-  { nome: 'E. M. Senador Nelson Carneiro' },
-  { nome: 'E. M. Waldick Cunegundes Pereira' },
+  { nome: 'Escola Municipal Allan Kardec' },
+  { nome: 'Escola Municipal Aníbal Viriato de Castro' },
+  { nome: 'Escola Municipal Carlos Pereira Neto' },
+  { nome: 'Escola Municipal Castelo Branco' },
+  { nome: 'Escola Municipal Dr. Cledon Cavalcante' },
+  { nome: 'Escola Municipal Dr. Francisco Manoel Brandão' },
+  { nome: 'Escola Municipal Eloi Dias Teixeira' },
+  { nome: 'Escola Municipal José Anastácio Rodrigues' },
+  { nome: 'Escola Municipal José Bittencourt de Oliveira' },
+  { nome: 'Escola Municipal Luiz de Camões' },
+  { nome: 'Escola Municipal Metodista de Queimados' },
+  { nome: 'Escola Municipal Monteiro Lobato' },
+  { nome: 'Escola Municipal Oscar Weinschenck' },
+  { nome: 'Escola Municipal Pastor Arsênio Gonçalves' },
+  { nome: 'Escola Municipal Paulo Freire' },
+  { nome: 'Escola Municipal Professor Diva Teixeira Martins' },
+  { nome: 'Escola Municipal Professor Joaquim de Freitas' },
+  { nome: 'Escola Municipal Professor Leopoldo Machado' },
+  { nome: 'Escola Municipal Professora Scintilla Exel' },
+  { nome: 'Escola Municipal Professor Ubirajara Ferreira' },
+  { nome: 'Escola Municipal Santo Antônio' },
+  { nome: 'Escola Municipal São José' },
+  { nome: 'Escola Municipal Senador Nelson Carneiro' },
+  { nome: 'Escola Municipal Waldick Cunegundes Pereira' },
 ]
 
 async function main() {
-  console.log('Iniciando o seed completo das escolas de Queimados RJ...')
+  console.log('Iniciando o seed completo das escolas e creches de Queimados RJ...')
 
-  // 1. Seed de Turnos (obrigatório para o sistema funcionar)
+  // 1. Seed de Turnos
   const existingTurnos = await db.select().from(turnos)
   if (existingTurnos.length === 0) {
     console.log('Semeando turnos...')
@@ -49,21 +50,20 @@ async function main() {
     ])
   }
 
-  // 2. Seed das Escolas e Creches de Queimados (reavalia ou insere)
+  // 2. Seed das Escolas e Creches de Queimados
   const existingEscolas = await db.select().from(escolas)
   let seededEscolaIds: number[] = existingEscolas.map((e) => e.id)
-  if (existingEscolas.length < ESCOLAS_QUEIMADOS.length) {
-    console.log('Semeando a lista completa de escolas e creches municipais de Queimados...')
-    for (const esc of ESCOLAS_QUEIMADOS) {
-      const exists = existingEscolas.some((e) => e.nome.toLowerCase() === esc.nome.toLowerCase())
-      if (!exists) {
-        const [inserted] = await db.insert(escolas).values(esc).returning({ id: escolas.id })
-        if (inserted?.id) seededEscolaIds.push(inserted.id)
-      }
+  
+  console.log('Semeando a lista completa de escolas e creches municipais de Queimados...')
+  for (const esc of ESCOLAS_QUEIMADOS) {
+    const exists = existingEscolas.some((e) => e.nome.toLowerCase() === esc.nome.toLowerCase())
+    if (!exists) {
+      const [inserted] = await db.insert(escolas).values(esc).returning({ id: escolas.id })
+      if (inserted?.id) seededEscolaIds.push(inserted.id)
     }
   }
 
-  // 3. Seed de Oficinas (apenas se vazio)
+  // 3. Seed de Oficinas
   const existingOficinas = await db.select().from(oficinas)
   let seededOficinaIds: number[] = existingOficinas.map((o) => o.id)
   if (existingOficinas.length === 0) {
@@ -80,7 +80,7 @@ async function main() {
     seededOficinaIds = inserted.map((i) => i.id)
   }
 
-  // 4. Seed de Oficineiros (apenas se vazio)
+  // 4. Seed de Oficineiros
   const existingOficineiros = await db.select().from(oficineiros)
   let seededOficineiroIds: number[] = existingOficineiros.map((o) => o.id)
   if (existingOficineiros.length === 0) {
@@ -95,7 +95,7 @@ async function main() {
     seededOficineiroIds = inserted.map((i) => i.id)
   }
 
-  // 5. Seed de Lotações de demonstração (apenas se vazio)
+  // 5. Seed de Lotações de demonstração
   const existingLotacoes = await db.select().from(lotacoes)
   if (
     existingLotacoes.length === 0 &&
@@ -154,7 +154,7 @@ async function main() {
     ])
   }
 
-  console.log('Seed completo das 28 escolas e creches de Queimados concluído!')
+  console.log('Seed completo das 29 unidades escolares e creches de Queimados concluído!')
 }
 
 main().catch((err) => {
