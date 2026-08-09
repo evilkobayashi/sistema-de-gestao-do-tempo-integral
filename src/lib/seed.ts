@@ -1,13 +1,16 @@
 import { db } from './db'
 import { turnos, escolas, oficinas, oficineiros, lotacoes } from './schema'
 
-const ESCOLAS_QUEIMADOS = [
+const ESCOLAS_QUEIMADOS_42 = [
   // Creches Municipais
   { nome: 'Creche Municipal Clotildes Martins Lemos' },
   { nome: 'Creche Municipal Iracema Garcia' },
+  { nome: 'Creche Municipal Professora Ana Claudia do Carmo' },
   { nome: 'Creche Municipal Professora Vanda Gonçalves Faria Ferreira' },
   { nome: 'Creche Municipal Vereador Gilberto Peres de Oliveira' },
-  { nome: 'Creche Municipal Professora Ana Claudia do Carmo' },
+  { nome: 'Creche Municipal Professora Vera Ribeiro Menezes' },
+  { nome: 'Creche Municipal Dona Maria Santíssima' },
+  { nome: 'Creche Municipal São Jorge' },
 
   // Escolas Municipais
   { nome: 'Escola Municipal Allan Kardec' },
@@ -19,25 +22,37 @@ const ESCOLAS_QUEIMADOS = [
   { nome: 'Escola Municipal Eloi Dias Teixeira' },
   { nome: 'Escola Municipal José Anastácio Rodrigues' },
   { nome: 'Escola Municipal José Bittencourt de Oliveira' },
+  { nome: 'Escola Municipal José de Anchieta' },
   { nome: 'Escola Municipal Luiz de Camões' },
   { nome: 'Escola Municipal Metodista de Queimados' },
   { nome: 'Escola Municipal Monteiro Lobato' },
   { nome: 'Escola Municipal Oscar Weinschenck' },
   { nome: 'Escola Municipal Pastor Arsênio Gonçalves' },
   { nome: 'Escola Municipal Paulo Freire' },
+  { nome: 'Escola Municipal Primeira Igreja Batista' },
+  { nome: 'Escola Municipal Professor Alberto Pirro' },
   { nome: 'Escola Municipal Professor Diva Teixeira Martins' },
+  { nome: 'Escola Municipal Professor Gilvanei Pereira da Fonseca' },
   { nome: 'Escola Municipal Professor Joaquim de Freitas' },
   { nome: 'Escola Municipal Professor Leopoldo Machado' },
-  { nome: 'Escola Municipal Professora Scintilla Exel' },
   { nome: 'Escola Municipal Professor Ubirajara Ferreira' },
+  { nome: 'Escola Municipal Professora Anna Maria dos Santos Perobelli' },
+  { nome: 'Escola Municipal Professora Maria Coragio Pereira Xanchão' },
+  { nome: 'Escola Municipal Professora Scintilla Exel' },
   { nome: 'Escola Municipal Santo Antônio' },
+  { nome: 'Escola Municipal Santo Expedito' },
   { nome: 'Escola Municipal São José' },
   { nome: 'Escola Municipal Senador Nelson Carneiro' },
+  { nome: 'Escola Municipal Tiradentes' },
   { nome: 'Escola Municipal Waldick Cunegundes Pereira' },
+
+  // Centros Especializados de Educação
+  { nome: 'Centro de Atendimento Educacional Especializado (CAEE)' },
+  { nome: 'Centro de Educação a Distância de Queimados (CEADQ)' },
 ]
 
 async function main() {
-  console.log('Iniciando o seed completo das escolas e creches de Queimados RJ...')
+  console.log('Iniciando o seed completo das 42 escolas e creches de Queimados RJ...')
 
   // 1. Seed de Turnos
   const existingTurnos = await db.select().from(turnos)
@@ -50,12 +65,12 @@ async function main() {
     ])
   }
 
-  // 2. Seed das Escolas e Creches de Queimados
+  // 2. Seed das 42 Escolas e Creches de Queimados
   const existingEscolas = await db.select().from(escolas)
   let seededEscolaIds: number[] = existingEscolas.map((e) => e.id)
   
-  console.log('Semeando a lista completa de escolas e creches municipais de Queimados...')
-  for (const esc of ESCOLAS_QUEIMADOS) {
+  console.log('Semeando a lista completa de 42 unidades escolares e creches municipais de Queimados...')
+  for (const esc of ESCOLAS_QUEIMADOS_42) {
     const exists = existingEscolas.some((e) => e.nome.toLowerCase() === esc.nome.toLowerCase())
     if (!exists) {
       const [inserted] = await db.insert(escolas).values(esc).returning({ id: escolas.id })
@@ -154,7 +169,7 @@ async function main() {
     ])
   }
 
-  console.log('Seed completo das 29 unidades escolares e creches de Queimados concluído!')
+  console.log('Seed completo das 42 escolas e creches de Queimados concluído!')
 }
 
 main().catch((err) => {
